@@ -104,8 +104,9 @@ export function HomePage() {
       <Header />
       <main>
         <section className={styles.hero}>
-          <h1 className={styles.heroTitle}>Find your next stay</h1>
-          <form className={styles.heroSearch} onSubmit={handleSearch}>
+          <div className={styles.heroContent}>
+            <h1 className={styles.heroTitle}>Find your next stay</h1>
+            <form className={styles.heroSearch} onSubmit={handleSearch}>
             <div className={styles.heroSearchField}>
               <div className={styles.heroSearchSegment}>
                 <span className={styles.heroSearchLabel}>Location</span>
@@ -164,10 +165,68 @@ export function HomePage() {
                   <circle cx="11" cy="11" r="8" />
                   <path d="m21 21-4.35-4.35" />
                 </svg>
-              </button>
+                </button>
+              </div>
+            </form>
+            <div className={styles.heroCta}>
+              <p className={styles.heroCtaText}>Not sure where to go? Perfect.</p>
+              <button type="button" className={styles.heroFlexibleBtn}>I&apos;m flexible</button>
             </div>
-          </form>
+          </div>
         </section>
+
+        {/* Sticky search + filters */}
+        <div className={styles.stickySearchBar}>
+          <form className={styles.searchPill} onSubmit={handleSearch}>
+            <input
+              type="text"
+              className={styles.searchPillSegment}
+              placeholder="Where"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Where"
+            />
+            <div className={styles.searchPillDivider} />
+            <input
+              type="text"
+              className={styles.searchPillSegment}
+              placeholder="When"
+              readOnly
+              aria-label="When"
+            />
+            <div className={styles.searchPillDivider} />
+            <input
+              type="text"
+              className={styles.searchPillSegment}
+              placeholder="Who"
+              value={guests ? `${guests} guest${guests === '1' ? '' : 's'}` : ''}
+              readOnly
+              aria-label="Who"
+            />
+            <div className={styles.searchPillDivider} />
+            <button type="submit" className={styles.searchPillBtn} aria-label="Search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>
+            </button>
+          </form>
+          <div className={styles.filterPills}>
+            <button type="button" className={styles.filterPill}>Entire homes</button>
+            <button type="button" className={styles.filterPill}>Cabins</button>
+            <button type="button" className={styles.filterPill}>Unique stays</button>
+            <button type="button" className={styles.filterPill}>Pets allowed</button>
+            <button type="button" className={styles.filterPill}>
+              <span className={styles.filterPillIcon}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M2 14h4M12 8h4M18 12h4" />
+                </svg>
+              </span>
+              Filters
+            </button>
+            <button type="button" className={styles.filterPill}>Display total before taxes</button>
+          </div>
+        </div>
 
         {/* Inspiration for your next trip */}
         <section className={styles.section}>
