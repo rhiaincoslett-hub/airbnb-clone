@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import styles from './HomePage.module.css';
@@ -66,6 +66,8 @@ export function HomePage() {
   const [activeTab, setActiveTab] = useState(0);
   const [showMoreDestinations, setShowMoreDestinations] = useState(false);
   const navigate = useNavigate();
+  const stickyBarRef = useRef(null);
+  const [openPopover, setOpenPopover] = useState(null); // 'when' | 'who' | null
 
   useEffect(() => {
     fetch(`${API_BASE}/api/accommodations`)
@@ -84,6 +86,25 @@ export function HomePage() {
       })
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (stickyBarRef.current && !stickyBarRef.current.contains(e.target)) {
+        setOpenPopover(null);
+      }
+    }
+    if (openPopover) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [openPopover]);
+
+  const formatDateRange = () => {
+    if (!checkIn && !checkOut) return null;
+    if (checkIn && !checkOut) return checkIn;
+    if (!checkIn && checkOut) return checkOut;
+    return `${checkIn} – ${checkOut}`;
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -176,8 +197,9 @@ export function HomePage() {
         </section>
 
         {/* Sticky search + filters */}
-        <div className={styles.stickySearchBar}>
-          <form className={styles.searchPill} onSubmit={handleSearch}>
+        <div ref={stickyBarRef} className={styles.stickySearchBar}>
+          <div className={styles.searchPillWrap}>
+            <form className={styles.searchPill} onSubmit={handleSearch}>
             <input
               type="text"
               className={styles.searchPillSegment}
@@ -187,22 +209,47 @@ export function HomePage() {
               aria-label="Where"
             />
             <div className={styles.searchPillDivider} />
-            <input
-              type="text"
-              className={styles.searchPillSegment}
-              placeholder="When"
-              readOnly
-              aria-label="When"
-            />
+            <div
+              className={`${styles.searchPillSegment} ${styles.searchPillSegmentClickable} ${openPopover === 'when' ? styles.searchPillSegmentActive : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenPopover((p) => (p === 'when' ? null : 'when'));
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setOpenPopover((p) => (p === 'when' ? null : 'when'));
+                }
+              }}
+              aria-label="When - Add dates"
+            >
+              <span className={`${styles.searchPillValue} ${!formatDateRange() ? styles.searchPillValuePlaceholder : ''}`}>
+                {formatDateRange() || 'When'}
+              </span>
+            </div>
             <div className={styles.searchPillDivider} />
-            <input
-              type="text"
-              className={styles.searchPillSegment}
-              placeholder="Who"
-              value={guests ? `${guests} guest${guests === '1' ? '' : 's'}` : ''}
-              readOnly
-              aria-label="Who"
-            />
+            <div
+              className={`${styles.searchPillSegment} ${styles.searchPillSegmentClickable} ${openPopover === 'who' ? styles.searchPillSegmentActive : ''}`}
+              onClick={(e) => {
+                e.preventDefault();
+                setOpenPopover((p) => (p === 'who' ? null : 'who'));
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setOpenPopover((p) => (p === 'who' ? null : 'who'));
+                }
+              }}
+              aria-label="Who - Add guests"
+            >
+              <span className={`${styles.searchPillValue} ${!guests ? styles.searchPillValuePlaceholder : ''}`}>
+                {guests ? `${guests} guest${guests === '1' ? '' : 's'}` : 'Who'}
+              </span>
+            </div>
             <div className={styles.searchPillDivider} />
             <button type="submit" className={styles.searchPillBtn} aria-label="Search">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -211,6 +258,55 @@ export function HomePage() {
               </svg>
             </button>
           </form>
+          {openPopover === 'when' && (
+            <div className={styles.popover} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.popoverTitle}>Check in – Check out</div>
+              <div className={styles.popoverDateRow}>
+                <label className={styles.popoverLabel}>
+                  <span>Check in</span>
+                  <input
+                    type="date"
+                    value={checkIn}
+                    onChange={(e) => setCheckIn(e.target.value)}
+                    min={today}
+                    aria-label="Check in"
+                    className={styles.popoverDateInput}
+                  />
+                </label>
+                <label className={styles.popoverLabel}>
+                  <span>Check out</span>
+                  <input
+                    type="date"
+                    value={checkOut}
+                    onChange={(e) => setCheckOut(e.target.value)}
+                    min={checkOutMin}
+                    aria-label="Check out"
+                    className={styles.popoverDateInput}
+                  />
+                </label>
+              </div>
+            </div>
+          )}
+          {openPopover === 'who' && (
+            <div className={styles.popover} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.popoverTitle}>Guests</div>
+              <div className={styles.popoverGuestList}>
+                {GUEST_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value || 'empty'}
+                    type="button"
+                    className={`${styles.popoverGuestOption} ${guests === opt.value ? styles.popoverGuestOptionActive : ''}`}
+                    onClick={() => {
+                      setGuests(opt.value);
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+          </div>
           <div className={styles.filterPills}>
             <button type="button" className={styles.filterPill}>Entire homes</button>
             <button type="button" className={styles.filterPill}>Cabins</button>
