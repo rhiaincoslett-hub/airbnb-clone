@@ -1,0 +1,109 @@
+.form {
+  max-width: 560px;
+  padding: var(--spacing-lg);
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-lg);
+  color: var(--dark);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.field {
+  flex: 1;
+  min-width: 160px;
+}
+
+.amenitiesGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.serverError,
+.loading {
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.serverError {
+  background: #fff5f5;
+  color: var(--primary);
+  border-radius: var(--border-radius-btn);
+  font-size: 0.9rem;
+}
+
+.loading {
+  color: var(--gray);
+}
+
+.fileInput {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+  font-size: 0.9rem;
+}
+
+.uploadStatus {
+  font-size: 0.9rem;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+  display: block;
+}
+
+.thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.thumbWrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-btn);
+  overflow: hidden;
+  background: var(--light);
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.removeThumb {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

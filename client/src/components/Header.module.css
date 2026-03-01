@@ -1,0 +1,102 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-bottom: 1px solid var(--light-gray);
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 32px;
+  width: auto;
+}
+
+.searchWrap {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 var(--spacing-lg);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--border-radius-btn);
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.becomeHost {
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.becomeHost:hover {
+  color: var(--primary);
+}
+
+.greeting {
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdownToggle {
+  background: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: var(--spacing-xs);
+  min-width: 180px;
+  padding: var(--spacing-sm);
+  background: var(--white);
+  border-radius: var(--border-radius-btn);
+  box-shadow: var(--shadow);
+  list-style: none;
+}
+
+.dropdownMenu li {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.dropdownMenu a,
+.dropdownMenu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+
+.dropdownMenu a:hover,
+.dropdownMenu button:hover {
+  color: var(--primary);
+}

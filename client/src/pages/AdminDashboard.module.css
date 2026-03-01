@@ -1,0 +1,75 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+}
+
+.header {
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.title {
+  font-size: 1.5rem;
+  color: var(--dark);
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.cardWrap {
+  position: relative;
+}
+
+.cardActions {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  display: flex;
+  gap: var(--spacing-xs);
+  z-index: 1;
+}
+
+.error {
+  padding: var(--spacing-md);
+  color: var(--primary);
+  margin: var(--spacing-md);
+}
+
+.loading {
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--gray);
+}
+
+.thumbnail {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--border-radius-btn);
+}
+
+.cardTitle {
+  font-weight: 600;
+  margin-top: var(--spacing-sm);
+}
+
+.cardMeta {
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin-top: var(--spacing-xs);
+}
+
+.itemCard {
+  padding: var(--spacing-md);
+  border: 1px solid var(--light-gray);
+  border-radius: var(--border-radius-card);
+  background: var(--white);
+}
