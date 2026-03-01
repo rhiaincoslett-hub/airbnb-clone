@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/Button';
+import { API_BASE } from '../api';
 import styles from './AdminDashboard.module.css';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 /**
  * Admin dashboard: fetch accommodations, grid with edit/delete, link to create.

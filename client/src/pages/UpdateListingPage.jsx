@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { API_BASE } from '../api';
 import styles from './UpdateListingPage.module.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 const AMENITY_OPTIONS = ['wifi', 'kitchen', 'parking', 'pool', 'washer', 'dryer', 'ac', 'heating', 'tv', 'workspace'];
 
 /**

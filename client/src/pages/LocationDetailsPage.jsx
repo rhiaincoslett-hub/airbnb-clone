@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE } from '../api';
 import styles from './LocationDetailsPage.module.css';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 // Sample data for sections not yet from API
 const REVIEW_COUNT = 7;

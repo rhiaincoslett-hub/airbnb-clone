@@ -3,9 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Input } from '../components/Input';
 import { Button } from '../components/Button';
+import { API_BASE } from '../api';
 import styles from './LoginPage.module.css';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 /**
  * Register form: username/password, POST /api/users/register with role host,

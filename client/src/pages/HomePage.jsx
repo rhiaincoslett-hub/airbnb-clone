@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Header } from '../components/Header';
+import { API_BASE } from '../api';
 import styles from './HomePage.module.css';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 // Fallback inspiration cards when API has no data
 const FALLBACK_INSPIRATION = [

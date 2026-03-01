@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Header } from '../components/Header';
 import { Card } from '../components/Card';
+import { API_BASE } from '../api';
 import styles from './LocationPage.module.css';
-
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 /**
  * Location listing page: fetch accommodations, filter by location param, show count and cards.
