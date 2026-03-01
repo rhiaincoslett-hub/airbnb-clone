@@ -121,6 +121,8 @@ export function LocationDetailsPage() {
     const d = new Date();
     return { year: d.getFullYear(), month: d.getMonth() };
   });
+  const [showGalleryModal, setShowGalleryModal] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/accommodations/${id}`)
@@ -214,6 +216,23 @@ export function LocationDetailsPage() {
     });
   };
 
+  const allImages = acc?.images?.length ? acc.images : ['https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800'];
+
+  useEffect(() => {
+    if (!showGalleryModal) return;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setShowGalleryModal(false);
+      if (e.key === 'ArrowLeft') setGalleryIndex((i) => (i <= 0 ? allImages.length - 1 : i - 1));
+      if (e.key === 'ArrowRight') setGalleryIndex((i) => (i >= allImages.length - 1 ? 0 : i + 1));
+    };
+    document.addEventListener('keydown', onKeyDown);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [showGalleryModal, allImages.length]);
+
   if (loading) return <div className={styles.loading}>Loading…</div>;
   if (error || !acc) return <div className={styles.error}>{error || 'Not found'}</div>;
 
@@ -272,11 +291,55 @@ export function LocationDetailsPage() {
               </div>
             ))}
           </div>
-          <a href="#gallery" className={styles.allPhotosBtn}>
-            <span className={styles.allPhotosIcon}>☷</span>
+          <button
+            type="button"
+            className={styles.allPhotosBtn}
+            onClick={() => { setGalleryIndex(0); setShowGalleryModal(true); }}
+            aria-label="View all photos"
+          >
+            <span className={styles.allPhotosIcon} aria-hidden>☷</span>
             All photos
-          </a>
+          </button>
         </div>
+
+        {showGalleryModal && (
+          <div
+            className={styles.galleryModalOverlay}
+            onClick={() => setShowGalleryModal(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Photo gallery"
+          >
+            <button
+              type="button"
+              className={styles.galleryModalClose}
+              onClick={() => setShowGalleryModal(false)}
+              aria-label="Close gallery"
+            >
+              ×
+            </button>
+            <button
+              type="button"
+              className={styles.galleryModalPrev}
+              onClick={(e) => { e.stopPropagation(); setGalleryIndex((i) => (i <= 0 ? images.length - 1 : i - 1)); }}
+              aria-label="Previous photo"
+            >
+              ←
+            </button>
+            <div className={styles.galleryModalContent} onClick={(e) => e.stopPropagation()}>
+              <img src={images[galleryIndex]} alt="" />
+              <span className={styles.galleryModalCounter}>{galleryIndex + 1} / {images.length}</span>
+            </div>
+            <button
+              type="button"
+              className={styles.galleryModalNext}
+              onClick={(e) => { e.stopPropagation(); setGalleryIndex((i) => (i >= images.length - 1 ? 0 : i + 1)); }}
+              aria-label="Next photo"
+            >
+              →
+            </button>
+          </div>
+        )}
 
         <div className={styles.twoCol}>
           {/* Left column */}

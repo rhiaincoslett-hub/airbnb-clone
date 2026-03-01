@@ -190,7 +190,7 @@ export function HomePage() {
             </form>
             <div className={styles.heroCta}>
               <p className={styles.heroCtaText}>Not sure where to go? Perfect.</p>
-              <button type="button" className={styles.heroFlexibleBtn}>I&apos;m flexible</button>
+              <Link to="/locations" className={styles.heroFlexibleBtn}>I&apos;m flexible</Link>
             </div>
           </div>
         </section>

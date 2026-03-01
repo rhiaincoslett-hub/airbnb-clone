@@ -118,6 +118,9 @@
   border-radius: var(--border-radius-btn);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   text-decoration: none;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-family);
 }
 
 .allPhotosBtn:hover {
@@ -126,6 +129,88 @@
 
 .allPhotosIcon {
   font-size: 1rem;
+}
+
+/* Gallery modal (lightbox) */
+.galleryModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.galleryModalClose {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--dark);
+  font-family: var(--font-family);
+  z-index: 1001;
+}
+
+.galleryModalClose:hover {
+  background: var(--white);
+}
+
+.galleryModalPrev,
+.galleryModalNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--dark);
+  font-family: var(--font-family);
+  z-index: 1001;
+}
+
+.galleryModalPrev:hover,
+.galleryModalNext:hover {
+  background: var(--white);
+}
+
+.galleryModalPrev {
+  left: var(--spacing-lg);
+}
+
+.galleryModalNext {
+  right: var(--spacing-lg);
+}
+
+.galleryModalContent {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.galleryModalContent img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+}
+
+.galleryModalCounter {
+  color: var(--white);
+  font-size: 0.95rem;
 }
 
 /* ----- Two column layout ----- */
