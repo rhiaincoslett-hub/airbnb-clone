@@ -1,11 +1,12 @@
 {
-  "name": "airbnb-clone-server",
+  "name": "airbnb-clone",
   "version": "1.0.0",
-  "description": "Airbnb clone API server",
-  "main": "server.js",
+  "description": "Airbnb clone full-stack app",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server.js",
-    "seed": "node seed.js"
+    "start": "node server/server.js",
+    "build": "cd client && npm install && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
