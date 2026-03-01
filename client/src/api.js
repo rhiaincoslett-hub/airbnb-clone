@@ -4,7 +4,10 @@
  * - In dev (Vite dev server), defaults to http://localhost:5001.
  * - In production build with no VITE_API_URL, uses same origin so the app works when
  *   served from the same server as the API (e.g. Express serving client/dist + /api).
+ * Trailing slash is stripped so paths like API_BASE + '/api/...' never double-slash.
  */
-export const API_BASE =
+const raw =
   import.meta.env.VITE_API_URL ||
   (import.meta.env.DEV ? 'http://localhost:5001' : '');
+
+export const API_BASE = typeof raw === 'string' && raw.endsWith('/') ? raw.slice(0, -1) : raw;

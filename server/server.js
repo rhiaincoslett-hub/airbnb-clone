@@ -26,6 +26,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/accommodations', accommodationRoutes);
 app.use('/api/reservations', reservationRoutes);
 
+// Never serve the SPA for /api - return JSON 404 so the client never gets HTML by mistake
+app.use('/api', (req, res) => res.status(404).json({ message: 'Not found' }));
+
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
