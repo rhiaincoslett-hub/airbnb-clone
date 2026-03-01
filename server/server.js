@@ -25,6 +25,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/users', userRoutes);
 app.use('/api/accommodations', accommodationRoutes);
 app.use('/api/reservations', reservationRoutes);
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+});
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
